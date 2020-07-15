@@ -1,0 +1,202 @@
+<dashboard theme="dark">
+  <label>Summary of COVID-19 cases and deaths in US</label>
+  <description>Cumulative total number of COVID-19 cases in the United States by report date, January 12, 2020, to July 14, 2020</description>
+  <row>
+    <panel>
+      <title>Total number of cases</title>
+      <single>
+        <search>
+          <query>index=main source="time_series_covid19_confirmed_us.csv" 
+| stats sum(7_14_20) as "Total Cases"</query>
+          <earliest>0</earliest>
+          <latest></latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="unitPosition">after</option>
+        <option name="useThousandSeparators">1</option>
+      </single>
+    </panel>
+    <panel>
+      <title>Total number of deaths</title>
+      <single>
+        <search>
+          <query>source="time_series_covid19_deaths_US.csv" sourcetype="csv"
+| stats sum(7_14_20)</query>
+          <earliest>0</earliest>
+          <latest></latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="refresh.display">progressbar</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Number of cases by states</title>
+      <chart>
+        <search>
+          <query>index=main sourcetype="csv"
+| stats sum(7_14_20) as Cases by Province_State
+| rename Province_State as State
+| sort -Cases</query>
+          <earliest>0</earliest>
+          <latest></latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">pie</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Number of deaths by states</title>
+      <chart>
+        <search>
+          <query>index=main sourcetype="csv" source="time_series_covid19_deaths_us.csv"
+| stats sum(7_14_20) as Deaths by Province_State
+| rename Province_State as State
+| sort -Deaths</query>
+          <earliest>0</earliest>
+          <latest></latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">pie</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>New Cases every 15 days</title>
+      <chart>
+        <search>
+          <query>index=main sourcetype="csv" source="time_series_covid19_confirmed_us.csv" 
+| table Province_State,1_22_20, 
+1_23_20, 1_24_20 , 1_25_20 , 1_26_20 , 1_27_20 , 1_28_20 , 1_29_20, 1_30_20, 1_31_20 , 
+2_1_20, 2_2_20, 2_3_20, 2_4_20, 2_5_20, 2_6_20, 2_7_20, 2_8_20, 2_9_20, 2_10_20, 2_11_20, 2_12_20, 2_13_20, 2_14_20, 2_15_20, 2_16_20, 2_17_20, 2_18_20, 2_19_20, 2_20_20, 2_21_20, 2_22_20, 2_23_20, 2_24_20, 2_25_20, 2_26_20, 2_27_20, 2_28_20, 2_29_20, 
+3_1_20, 3_2_20, 3_3_20, 3_4_20, 3_5_20, 3_6_20, 3_7_20, 3_8_20, 3_9_20, 3_10_20, 3_11_20, 3_12_20, 3_13_20, 3_14_20, 3_15_20, 3_16_20, 3_17_20, 3_18_20, 3_19_20, 3_20_20, 3_21_20, 3_22_20, 3_23_20, 3_24_20, 3_25_20, 3_26_20, 3_27_20, 3_28_20, 3_29_20, 3_30_20, 3_31_20, 
+4_1_20, 4_2_20, 4_3_20, 4_4_20, 4_5_20, 4_6_20, 4_7_20, 4_8_20, 4_9_20, 4_10_20, 4_11_20, 4_12_20, 4_13_20, 4_14_20, 4_15_20, 4_16_20, 4_17_20, 4_18_20, 4_19_20, 4_20_20, 4_21_20, 4_22_20, 4_23_20, 4_24_20, 4_25_20, 4_26_20, 4_27_20, 4_28_20, 4_29_20, 4_30_20,
+5_1_20, 5_2_20, 5_3_20, 5_4_20, 5_5_20, 5_6_20, 5_7_20, 5_8_20, 5_9_20, 5_10_20, 5_11_20, 5_12_20, 5_13_20, 5_14_20, 5_15_20, 5_16_20, 5_17_20, 5_18_20, 5_19_20, 5_20_20, 5_21_20, 5_22_20, 5_23_20, 5_24_20, 5_25_20, 5_26_20, 5_27_20, 5_28_20, 5_29_20, 5_30_20, 5_31_20, 
+6_1_20, 6_2_20, 6_3_20, 6_4_20, 6_5_20, 6_6_20, 6_7_20, 6_8_20, 6_9_20, 6_10_20, 6_11_20, 6_12_20, 6_13_20, 6_14_20, 6_15_20, 6_16_20, 6_17_20, 6_18_20, 6_19_20, 6_20_20, 6_21_20, 6_22_20, 6_23_20, 6_24_20, 6_25_20, 6_26_20, 6_27_20, 6_28_20, 6_29_20, 6_30_20, 
+7_1_20, 7_2_20, 7_3_20, 7_4_20, 7_5_20, 7_6_20, 7_7_20, 7_8_20, 7_9_20, 7_10_20, 7_11_20, 7_12_20, 7_13_20, 7_14_20
+| stats sum(1_22_20) as j1_22 , sum(1_23_20) as j1_23, sum(1_24_20) as j1_24, sum(1_25_20) as j1_25, sum(1_26_20) as j1_26, sum(1_27_20) as j1_27, sum(1_28_20) as j1_28, sum(1_29_20) as j1_29, sum(1_30_20) as j1_30,sum(1_31_20) as j1_31, 
+sum(2_1_20) as f2_1, sum(2_2_20) as f2_2, sum(2_3_20) as f2_3, sum(2_4_20) as f2_4, sum(2_5_20) as f2_5, sum(2_6_20) as f2_6, sum(2_7_20) as f2_7, sum(2_8_20) as f2_8, sum(2_9_20) as f2_9, sum(2_10_20) as f2_10, sum(2_11_20) as f2_11, sum(2_12_20) as f2_12, sum(2_13_20) as f2_13, sum(2_14_20) as f2_14, sum(2_15_20) as f2_15, sum(2_16_20) as f2_16, sum(2_17_20) as f2_17, sum(2_18_20) as f2_18, sum(2_19_20) as f2_19, sum(2_20_20) as f2_20, sum(2_21_20) as f2_21, sum(2_22_20) as f2_22, sum(2_23_20) as f2_23, sum(2_24_20) as f2_24, sum(2_25_20) as f2_25, sum(2_26_20) as f2_26, sum(2_27_20) as f2_27, sum(2_28_20) as f2_28, sum(2_29_20) as f2_29,
+sum(3_1_20) as m3_1, sum(3_2_20) as m3_2, sum(3_3_20) as m3_3, sum(3_4_20) as m3_4, sum(3_5_20) as m3_5, sum(3_6_20) as m3_6, sum(3_7_20) as m3_7, sum(3_8_20) as m3_8, sum(3_9_20) as m3_9, sum(3_10_20) as m3_10, sum(3_11_20) as m3_11, sum(3_12_20) as m3_12, sum(3_13_20) as m3_13, sum(3_14_20) as m3_14, sum(3_15_20) as m3_15, sum(3_16_20) as m3_16, sum(3_17_20) as m3_17, sum(3_18_20) as m3_18, sum(3_19_20) as m3_19, sum(3_20_20) as m3_20, sum(3_21_20) as m3_21, sum(3_22_20) as m3_22, sum(3_23_20) as m3_23, sum(3_24_20) as m3_24, sum(3_25_20) as m3_25, sum(3_26_20) as m3_26, sum(3_27_20) as m3_27, sum(3_28_20) as  m3_28, sum(3_29_20) as m3_29, sum(3_30_20) as m3_30, sum(3_31_20) as m3_31, 
+sum(4_1_20) as a4_1, sum(4_2_20) as a4_2, sum(4_3_20) as a4_3, sum(4_4_20) as a4_4, sum(4_5_20) as a4_5, sum(4_6_20) as a4_6, sum(4_7_20) as a4_7, sum(4_8_20) as a4_8, sum(4_9_20) as a4_9, sum(4_10_20) as a4_10, sum(4_11_20) as a4_11, sum(4_12_20) as a4_12, sum(4_13_20) as a4_13, sum(4_14_20) as a4_14, sum(4_15_20) as a4_15, sum(4_16_20) as a4_16, sum(4_17_20) as a4_17, sum(4_18_20) as a4_18, sum(4_19_20) as a4_19, sum(4_20_20) as a4_20, sum(4_21_20) as a4_21, sum(4_22_20) as a4_22, sum(4_23_20) as a4_23, sum(4_24_20) as a4_24, sum(4_25_20) as a4_25, sum(4_26_20) as a4_26, sum(4_27_20) as a4_27, sum(4_28_20) as a4_28, sum(4_29_20) as a4_29, sum(4_30_20) as a4_30,
+sum(5_1_20) as b5_1, sum(5_2_20) as b5_2, sum(5_3_20) as b5_3, sum(5_4_20) as b5_4, sum(5_5_20) as b5_5, sum(5_6_20) as b5_6, sum(5_7_20) as b5_7, sum(5_8_20) as b5_8, sum(5_9_20) as b5_9, sum(5_10_20) as b5_10, sum(5_11_20) as b5_11, sum(5_12_20) as b5_12, sum(5_13_20) as b5_13, sum(5_14_20) as b5_14, sum(5_15_20) as b5_15, sum(5_16_20) as b5_16, sum(5_17_20) as b5_17, sum(5_18_20) as b5_18, sum(5_19_20) as b5_19, sum(5_20_20) as b5_20, sum(5_21_20) as b5_21, sum(5_22_20) as b5_22, sum(5_23_20) as b5_23, sum(5_24_20) as b5_24, sum(5_25_20) as b5_25, sum(5_26_20) as b5_26, sum(5_27_20) as b5_27, sum(5_28_20) as b5_28, sum(5_29_20) as b5_29, sum(5_30_20) as b5_30, sum(5_31_20) as b5_31, 
+sum(6_1_20) as c6_1, sum(6_2_20) as c6_2, sum(6_3_20) as c6_3, sum(6_4_20) as c6_4, sum(6_5_20) as c6_5, sum(6_6_20) as c6_6, sum(6_7_20) as c6_7, sum(6_8_20) as c6_8, sum(6_9_20) as c6_9, sum(6_10_20) as c6_10, sum(6_11_20) as c6_11, sum(6_12_20) as c6_12, sum(6_13_20) as c6_13, sum(6_14_20) as c6_14, sum(6_15_20) as c6_15, sum(6_16_20) as c6_16, sum(6_17_20) as c6_17, sum(6_18_20) as c6_18, sum(6_19_20) as c6_19, sum(6_20_20) as c6_20, sum(6_21_20) as c6_21, sum(6_22_20) as c6_22, sum(6_23_20) as c6_23, sum(6_24_20) as c6_24, sum(6_25_20) as c6_25, sum(6_26_20) as c6_26, sum(6_27_20) as c6_27, sum(6_28_20) as c6_28, sum(6_29_20) as c6_29, sum(6_30_20) as c6_30,
+sum(7_1_20) as d7_1, sum(7_2_20) as d7_2, sum(7_3_20) as d7_3, sum(7_4_20) as d7_4, sum(7_5_20) as d7_5, sum(7_6_20) as d7_6, sum(7_7_20) as d7_7, sum(7_8_20) as d7_8, sum(7_9_20) as d7_9, sum(7_10_20) as d7_10, sum(7_11_20) as d7_11, sum(7_12_20) as d7_12, sum(7_13_20) as d7_13, sum(7_14_20) as d7_14,
+| eval 1/31 = (j1_31 - j1_22)
+| eval 2/15 = (f2_15 - f2_1)
+| eval 2/29 = (f2_29 - j2_16)
+| eval 3/15 = (m3_15 - f3__1)
+| eval 3/31 = (m3_31 - m3_16)
+| eval 4/15 = (a4_15 - a4_1)
+| eval 4/30 = (a4_30 - a4_16)
+| eval 5/15 = (b5_15 - a5_1)
+| eval 5/31 = (b5_31 - b5_16)
+| eval 6/15 = (c6_15 - b6_1)
+| eval 6/30 = (c6_30 - c6_16)
+| eval 7/15 = (d7_14 - d7_1)
+| fields - j1_22, j1_23, j1_24, j1_25, j1_26, j1_27, j1_28, j1_29, j1_30,  j1_31, f2_1, f2_2, f2_3, f2_4, f2_5, f2_6, f2_7, f2_8, f2_9, f2_10, f2_11, f2_12, f2_13, f2_14, f2_15, f2_16, f2_17, f2_18,f2_19, f2_20, f2_21, f2_22, f2_23, f2_24, f2_25, f2_26, f2_27, f2_28, f2_29, m3_1, m3_2, m3_3, m3_4, m3_5, m3_6, m3_7, m3_8, m3_9, m3_10, m3_11, m3_12, m3_13, m3_14, m3_15, m3_16, m3_17, m3_18, m3_19, m3_20, m3_21, m3_22, m3_23, m3_24, m3_25, m3_26, m3_27, m3_28, m3_29, m3_30, m3_31, a4_1, a4_2, a4_3, a4_4, a4_5, a4_6, a4_7, a4_8, a4_9, a4_10, a4_11, a4_12, a4_13, a4_14, a4_15, a4_16, a4_17, a4_18, a4_19, a4_20, a4_21, a4_22, a4_23, a4_24, a4_25, a4_26, a4_27,a4_28, a4_29, a4_30, b5_1, b5_2, b5_3, b5_4, b5_5, b5_6, b5_7, b5_8, b5_9, b5_10, b5_11, b5_12, b5_13, b5_14,b5_15,b5_16,b5_17,b5_18, b5_19, b5_20, b5_21, b5_22, b5_23, b5_24, b5_25, b5_26, b5_27, b5_28, b5_29, b5_30, b5_31, c6_1, c6_2, c6_3, c6_4, c6_5, c6_6, c6_7, c6_8, c6_9, c6_10, c6_11, c6_12, c6_13, c6_14, c6_15, c6_16, c6_17, c6_18, c6_19, c6_20,  c6_21, c6_22, c6_23, c6_24, c6_25, c6_26, c6_27, c6_28, c6_29, c6_30, d7_1, d7_2, d7_3, d7_4, d7_5, d7_6, d7_7, d7_8, d7_9, d7_10, d7_11, d7_12, d7_13, d7_14,</query>
+          <earliest>0</earliest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisLabelsY.majorUnit">10000</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">bottom</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+  </row>
+</dashboard>
